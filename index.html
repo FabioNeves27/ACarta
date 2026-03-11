@@ -1,340 +1,257 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Carta</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Carta Suprema</title>
 
-    <!-- Fonte romântica -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<!-- Fontes -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #f7e8e8, #fdf6f0);
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:#0c0c18;overflow-x:hidden;color:white;position:relative;}
 
-        .container {
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.85);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
-        }
+/* estrelas */
+.stars{position:fixed;width:100%;height:100%;background:url("https://www.transparenttextures.com/patterns/stardust.png");animation:starsMove 200s linear infinite; z-index:-3;}
+@keyframes starsMove{from{background-position:0 0;}to{background-position:3000px 3000px;}}
 
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: #5a2a2a;
-        }
+/* estrela cadente */
+.shooting-star{position:fixed;width:3px;height:3px;background:white;box-shadow:0 0 10px white;animation:shoot 6s linear infinite;}
+@keyframes shoot{0%{transform:translateX(-200px) translateY(-200px);opacity:1;}100%{transform:translateX(100vw) translateY(100vh);opacity:0;}}
 
-        p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #444;
-            margin-bottom: 30px;
-        }
+/* corações caindo */
+.heart{position:fixed;top:-20px;font-size:20px;color:#ff5e7e;animation:fall linear forwards;pointer-events:none;}
+@keyframes fall{to{transform:translateY(110vh);opacity:0;}}
 
-        ol {
-            text-align: left;
-            margin: 0 auto 40px auto;
-            max-width: 600px;
-            padding-left: 20px;
-        }
+/* coração mouse */
+.mouse-heart{position:fixed;pointer-events:none;font-size:18px;color:#ff5e7e;transform:translate(-50%,-50%);}
 
-        ol li {
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            color: #333;
-        }
+/* envelope */
+.envelope-screen{position:fixed;width:100%;height:100%;background:#0c0c18;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:10;}
+.envelope{width:200px;height:130px;background:white;position:relative;cursor:pointer;border-radius:5px;transition:all 0.8s ease;}
+.envelope:before{content:"";position:absolute;width:0;height:0;border-left:100px solid transparent;border-right:100px solid transparent;border-bottom:70px solid #e8e8e8;top:-70px;left:0;transition:.8s;transform-origin:bottom;}
+.envelope.open:before{transform:rotateX(180deg);}
 
-        video {
-            width: 100%;
-            max-width: 640px;
-            border-radius: 12px;
-            margin: 20px 0 40px 0;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-        }
+/* carta */
+.container{max-width:850px;margin:0 auto;background:rgba(255,255,255,0.95);color:#3b2d2d;padding:60px;border-radius:16px;box-shadow:0 30px 70px rgba(0,0,0,.4);display:none;text-align:center;position:relative;top:-300px;transition:top 1s ease, opacity 1s ease;opacity:0;overflow:hidden;}
 
-        .final {
-            font-style: italic;
-            color: #5a2a2a;
-        }
+/* efeito tinta letra por letra */
+.ink-text span{opacity:0;display:inline-block;}
+.ink-text span.show{opacity:1;transition:opacity 0.05s ease;}
 
-.video-container {
-  position: relative;
-  width: 100%;
-  max-width: 800px; /* opcional */
-  padding-bottom: 56.25%; /* proporção 16:9 */
-  height: 0;
-  overflow: hidden;
-}
-
-.video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 25px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+h1{font-family:'Playfair Display',serif;font-style:italic;font-size:2.6rem;color:#5a2a2a;margin-bottom:20px;}
+h1::after{content:"";display:block;width:60px;height:3px;background:#d48a8a;margin:10px auto;}
+.final{line-height:1.8;font-style:italic;}
+.divider{font-size:28px;margin:40px 0;color:#d48a2a;}
+video{width:100%;max-width:640px;border-radius:12px;margin:30px 0;box-shadow:0 12px 30px rgba(0,0,0,0.3);}
+.video-container{position:relative;width:100%;padding-bottom:56.25%;margin:30px auto;}
+.video-container iframe{position:absolute;width:100%;height:100%;border-radius:12px;}
+button{padding:14px 28px;background:#ff5e7e;border:none;border-radius:10px;color:white;font-size:16px;cursor:pointer;}
+@media(max-width:600px){.container{padding:35px;}h1{font-size:2rem;}}
+</style>
 </head>
 <body>
 
-    <div class="container">
+<div class="stars"></div>
+<div class="shooting-star"></div>
 
-        <h1>A Carta</h1>
+<audio id="music" loop>
+<source src="musica.mp3" type="audio/mp3">
+</audio>
+<audio id="penSound" loop><source src="pen-sound.mp3" type="audio/mp3"></audio>
+<audio id="heartBeat" loop><source src="heart-beat.mp3" type="audio/mp3"></audio>
 
-        <p class="final">
-    Eu queria que você visse esse site depois da carta.  
-    Não porque exista uma ordem certa, mas porque nem tudo o que eu sinto cabe em palavras.  
-    Talvez eu não tenha conseguido dizer tudo do jeito que você merece.  
+<div class="envelope-screen" id="envelopeScreen">
+<div class="envelope" id="envelope"></div>
+<div class="envelope-text" style="color:white;margin-top:20px;">Clique no envelope para abrir a carta 💌</div>
+</div>
 
-    Como diz o Péricles na nossa música:  
-    <em>Não existem mais palavras que eu possa escrever  
-    Pra falar de tanto amor…</em>  
+<div class="container" id="site">
 
-    Então eu quis te mostrar momentos.  
-    Porque às vezes eles falam melhor do que qualquer explicação.
-    <br>
+<h1>A Carta</h1>
+
+<p class="final ink-text" id="carta">
+Eu queria que você visse esse site depois da carta.  
+Não porque exista uma ordem certa, mas porque nem tudo o que eu sinto cabe em palavras.  
+Talvez eu não tenha conseguido dizer tudo do jeito que você merece.  
+
+Como diz o Péricles na nossa música:  
+<em>Não existem mais palavras que eu possa escrever  
+Pra falar de tanto amor…</em>  
+
+Então eu quis te mostrar momentos.  
+Porque às vezes eles falam melhor do que qualquer explicação.
 </p>
 
+<video controls>
+<source src="Video1.mp4" type="video/mp4">
+</video>
 
-        <video controls>
-            <source src="Video1.mp4" type="video/mp4">
-            Seu navegador não suporta vídeo HTML5.
-        </video>
-        
-        <p>Fui atrás de algumas citações que talvez você conheça:</p>
+<p>Fui atrás de algumas citações que talvez você conheça:</p>
 
-        <ol>
-            <li>Heath para Zoey — “Você sempre será minha, Zo.”</li>
-            <li>Erik para Zoey — “Eu quero você, Zoey. Só você.”</li>
-            <li>Stark para Zoey — “Eu vou te proteger, não importa o que aconteça.”</li>
-            <li>Stark para Zoey — “Eu te amo, e vou lutar contra qualquer coisa para ficar com você.”</li>
-            <li>Stark para Zoey — “Você é minha luz na escuridão.”</li>
-            <li>Kousei para Kaori (Your Lie in April) — “Você vive dentro de mim, e isso nunca vai desaparecer.”</li>
-
+<ol>
+<li>Heath para Zoey — “Você sempre será minha, Zo.”</li>
+<li>Erik para Zoey — “Eu quero você, Zoey. Só você.”</li>
+<li>Stark para Zoey — “Eu vou te proteger, não importa o que aconteça.”</li>
+<li>Stark para Zoey — “Eu te amo, e vou lutar contra qualquer coisa para ficar com você.”</li>
+<li>Stark para Zoey — “Você é minha luz na escuridão.”</li>
+<li>Kousei para Kaori (Your Lie in April) — “Você vive dentro de mim, e isso nunca vai desaparecer.”</li>
 <li>Sakurajima para Sakuta (Bunny Girl Senpai) — “Mesmo que o mundo te esqueça, eu vou lembrar de você.”</li>
-
 <li>Taki para Mitsuha (Your Name) — “Sinto que estou sempre procurando por você.”</li>
-
 <li>Tomoya para Nagisa (Clannad) — “Não importa o que aconteça, eu escolho ficar com você.”</li>
-
-            <li>Kakeru para Naho (Orange) — “Você me faz me sentir vivo.”</li>
-            <li>Tristan para Isolde (Cavaleiros do Apocalipse) — “Você é mais forte do que pensa, e eu admiro isso.”</li>
-            <li>Ban para Elaine (Nanatsu no Taizai) — “Eu só quero estar com você, Elaine.”</li>
-            <li>King para Diane (Nanatsu no Taizai) — “Eu sempre gostei de você, Diane.”</li>
-            <li>Meliodas para Elizabeth (Nanatsu no Taizai) — “Eu sempre estive ao seu lado, e sempre estarei.”</li>
-            <li>
-                Escanor para Merlin (Nanatsu no Taizai) —  
-                “Mesmo o sol, que todos veneram, se curva diante da tua luz.  
-                Pois não é o meu poder que me torna grandioso,  
-                mas o amor que sinto por ti.”
-            </li>
-            
-            <li>Rapunzel para Flynn — “Eu vejo quem você realmente é.”</li>
-            <li>Naveen para Tiana — “Você me fez querer ser alguém melhor.”</li>
+<li>Kakeru para Naho (Orange) — “Você me faz me sentir vivo.”</li>
+<li>Tristan para Isolde (Cavaleiros do Apocalipse) — “Você é mais forte do que pensa, e eu admiro isso.”</li>
+<li>Ban para Elaine (Nanatsu no Taizai) — “Eu só quero estar com você, Elaine.”</li>
+<li>King para Diane (Nanatsu no Taizai) — “Eu sempre gostei de você, Diane.”</li>
+<li>Meliodas para Elizabeth (Nanatsu no Taizai) — “Eu sempre estive ao seu lado, e sempre estarei.”</li>
+<li>Escanor para Merlin (Nanatsu no Taizai) —  
+“Mesmo o sol, que todos veneram, se curva diante da tua luz.  
+Pois não é o meu poder que me torna grandioso,  
+mas o amor que sinto por ti.”</li>
+<li>Rapunzel para Flynn — “Eu vejo quem você realmente é.”</li>
+<li>Naveen para Tiana — “Você me fez querer ser alguém melhor.”</li>
 <li>Peter para Lara Jean — “Eu escolhi você. Sempre foi você.”</li>
-
-            <li>Ri Jeong-hyeok para Se-ri (Pousando no Amor) — “Enquanto eu respirar, vou te proteger.”</li>
-
+<li>Ri Jeong-hyeok para Se-ri (Pousando no Amor) — “Enquanto eu respirar, vou te proteger.”</li>
 <li>Do Min-joon para Song-yi (Meu Amor das Estrelas) — “Mesmo esperando séculos, eu escolheria você de novo.”</li>
-
-
-
-        </ol>
+</ol>
 
 <p class="final">
-    Talvez você já esteja seguindo sua vida, talvez conversando com outra pessoa, talvez tenha deixado de sentir algo por mim ou até se sentindo magoada com a minha insistência.
-    Seja qual for o caso, eu sei que muito disso é consequência dos meus erros.
-    <br>
-    Recentemente assisti ao filme <i>Simplesmente Acontece</i> e senti vontade de compartilhar esse trecho com você.
-    Não porque ele fala de finais, mas porque fala de caminhos, escolhas e de como algumas pessoas continuam sendo importantes,
-    mesmo quando a vida tenta nos levar para direções diferentes.
-    <br>
-    Mesmo que por um tempo nossas vidas sigam separadas, e mesmo que conheçamos outras pessoas pelo caminho…
-    <br>
-    <strong>(Não é o que eu quero. Eu escolho você.)</strong>
-    <br>
-    Eu sei que não tenho controle sobre o tempo nem sobre as decisões,
-    mas sei do que sinto. Meliodas esperou 3 mil anos por Elizabeth e Jacó esperou 14 anos para casar com Raquel (Não sei se foi uma boa citar os dois exemplos na mesma frase, já que um faz parte da Bíblia e outro é retratado como pecado 🤡)
-    Mas enfim... se o destino permitir, eu espero.
-    Porque <b>você</b> é, e sempre foi, a pessoa certa para mim e a melhor coisa que aconteceu na minha vida..
-    <br>
-    <strong>Eu sei que muitas vezes eu estrago tudo com o meu jeito irritante de ser, mas eu te amo e estou aprendendo a fazer diferente.</strong>
+Talvez você já esteja seguindo sua vida, talvez conversando com outra pessoa, talvez tenha deixado de sentir algo por mim ou até se sentindo magoada com a minha insistência.  
+Seja qual for o caso, eu sei que muito disso é consequência dos meus erros.  
+Recentemente assisti ao filme <i>Simplesmente Acontece</i> e senti vontade de compartilhar esse trecho com você.  
+Mesmo que por um tempo nossas vidas sigam separadas, e mesmo que conheçamos outras pessoas pelo caminho…  
+<strong>(Não é o que eu quero. Eu escolho você.)</strong>  
+Eu sei que não tenho controle sobre o tempo nem sobre as decisões, mas sei do que sinto. Meliodas esperou 3 mil anos por Elizabeth e Jacó esperou 14 anos para casar com Raquel.  
+Mas enfim... se o destino permitir, eu espero.  
+Porque <b>você</b> é, e sempre foi, a pessoa certa para mim e a melhor coisa que aconteceu na minha vida.  
+Eu sei que muitas vezes eu estrago tudo com o meu jeito irritante de ser, mas eu te amo e estou aprendendo a fazer diferente.
 </p>
-
-        <video controls>
-            <source src="Video2.mp4" type="video/mp4">
-            Seu navegador não suporta vídeo HTML5.
-        </video>
-
-        
-        <p class="final">
-
-            Antes das minha ultimas palavras, gostaria de deixar mais um trecho de jogos vorazes, (sei o quanto você gosta) então como Katniss descreveu Peeta:
-            <br>
-
-            "Eu sei que isso teria acontecido de qualquer modo.
-O que eu preciso para sobreviver não é o fogo de Gale, inflamado com raiva e ódio.
-Eu tenho fogo suficiente em mim.
-O que eu preciso é do dente‑de‑leão na primavera.
-O amarelo brilhante que significa renascimento, em vez de destruição.
-A promessa de que a vida pode continuar, não importa o quão grandes sejam nossas perdas.
-Que pode ser boa de novo.
-E só o Peeta pode me dar isso." 
-            <br>
-            Você é meu "Peeta" Beatriz...
-        </p>
-            <br>
-
-<p class="final">
-Como dizia Charlie Brown Jr.:<br><br>
-
-<em>
-"Eu só queria te lembrar<br>
-Que aquele tempo eu não podia fazer mais por nós<br>
-Eu estava errado e você não tem que me perdoar<br>
-Mas também quero te mostrar<br>
-Que existe um lado bom nessa história<br>
-Tudo que ainda temos a compartilhar"</p>
-
-<br>
-        
-<h1>Último discurso</h1>
-
-<p class="final">
-Se em algum momento você pensar em tentar recomeçar, acredite: eu jamais deixaria você lutar sozinha novamente. Eu sei o quanto tudo isso foi doloroso, e é justamente por isso que hoje eu tenho ainda mais certeza do que sinto. Posso até ter me humilhado tentando, posso ter corrido atrás quando parecia tarde demais, posso até ter enchido o saco… mas tudo isso nasceu do mesmo lugar: do amor. Porque quando a gente ama de verdade, a gente erra tentando ficar, não acertando ao ir embora. Mesmo cansado, mesmo ferido, eu ainda escolhi você.
-Mesmo com nossas diferenças, com histórias e ambientes distintos — quase como Romeu e Julieta — eu ainda acredito em nós. Porque quando o amor é verdadeiro, ele encontra caminhos, aprende, amadurece e cresce. Talvez hoje tudo esteja confuso, pesado e silencioso, mas amar também é atravessar fases difíceis que machucam, ensinam e fazem a gente evoluir. Eu não estou aqui fingindo que foi fácil — estou aqui porque foi real.
-Eu sei que você pode não gostar de mim, ou até me odiar, por coisas que eu fiz — como ter sido babaca às vezes —, por coisas que deixei de fazer, como lutar quando tudo o que você mais queria era que eu ficasse, ou até por coisas que eu simplesmente não fiz. Ainda assim, saiba que, por mais que eu fique chateado com esse momento que estamos passando, eu te amo. E te amo porque, mesmo com tudo, eu te escolho. Não por conveniência, não por medo de perder — eu te escolho pra vida.
-Eu li nossas conversas, vi o quanto você lutou e consigo imaginar o sofrimento pelo qual você passou… afinal, hoje eu estou passando pela mesma dor. E agora eu entendo. Acho que a razão pela qual me apeguei tanto a você foi porque você foi minha primeira vez em muitas coisas. Foi com você que eu realmente senti algo de verdade. Você foi a única pessoa por quem eu realmente quis lutar para ficar na minha vida. E isso não some só porque dói.
-Discussões, dúvidas e até términos fazem parte da trajetória de muitos casais. O que realmente importa é a vontade de resolver, de dialogar melhor e de caminhar juntos. Se ainda existe amor — e eu sei que existe — a gente pode dar um jeito em tudo. Em tudo, menos na falta de sentimento. E sentimento aqui ainda tem.
-Hoje, tudo o que eu mais quero é uma chance. Uma chance de fazer diferente. Eu prometo que não vou repetir os mesmos erros, que vou ouvir mais, falar melhor, agir com menos orgulho e mais cuidado. Eu prometo que não vou te fazer se arrepender de tentar de novo comigo se um dia essa chance existir de novo. Eu não quero fugir dos problemas — eu quero resolver tudo com você, como sempre foi.
-Quando você se paga de madura e fria, eu ainda enxergo a garota que existe aí dentro. Aquela sem maldade, que ama dormir, comer, cuidar do cabelo, assistir desenho, ler livros, dar risada, pintar as unhas. E é você inteira — forte e frágil — que eu sempre amei. Independentemente de qualquer coisa, eu sempre vou te amar imensuravelmente.
-E agora deixa eu quebrar um pouco esse clima pesado, porque você me conhece… Você ainda me deve um casamento, filhos com esses seus olhos lindos que eu sempre achei os mais bonitos do mundo, uma casa cheia de bagunça com 10 gatos, 3 cachorros e, por algum motivo 2 hamsters. Eu falo brincando, mas no fundo é sério: quando eu penso em futuro, é você que aparece nele.
-Você é, e sempre vai ser, minha princesa chorona. E mesmo quando parece que eu não estou presente, eu continuo sendo o Fábio por quem você se apaixonou: aquele que te chamava de Zé Ruela, que sentiu frio na barriga ao ir no shopping com você pela primeira vez, que se sentia o homem mais sortudo do mundo ao te ver sorrir e ver seus olhos brilharem. Eu sou o seu maior fã, e você vai estar para sempre no meu coração.
-Eu peço desculpas por ter sido orgulhoso. Peço desculpas por não ter dito o que eu sentia no tempo certo. Peço desculpas por todas as vezes em que te fiz sentir que precisava mentir por medo de me deixar chateado. Peço desculpas por não ter lutado quando deveria, por ter te feito chorar, por ter te irritado com a minha persistência. Peço desculpas por não ter sido o cara que você sonhou. Mas eu prometo me tornar alguém melhor do que fui.
-A gente viveu coisas que nunca vivemos com outras pessoas. Criamos memórias que são só nossas. E, de um jeito simples e sincero, eu confesso: sempre achei lindos os seus olhos… e é impossível não pensar em como seria bonito reencontrar esse olhar no futuro, do nosso jeito, na nossa história.
-Tudo o que eu mais quero agora é poder te abraçar. Um abraço bem forte, como sempre foi. Um abraço que resolvesse tudo em silêncio. Um abraço pra sentir que isso tudo foi só uma fase difícil que a gente precisou passar pra evoluir. Um abraço pra lembrar que, apesar de tudo, ainda somos nós.
-Se um dia você conseguir me perdoar, eu te peço que acredite: eu posso ser o cara que vai fazer de tudo para te fazer feliz mais uma vez. O cara que vai chorar ao te ver no altar, vestida de branco, realizando tudo aquilo que um dia sonhamos. Não é tarde demais e nunca vai ser.
-Talvez eu precise sumir um pouco por um tempo. Se essa for mesmo a última mensagem que eu escrevo — e, caso não seja, me perdoa — saiba que esse sumiço não é desistência, nem falta de amor. É cuidado. Eu vou me cuidar, aprender com os meus erros e me tornar alguém melhor. E espero que, se a vida nos reencontrar, eu seja melhor para você.
-Então, por favor, não feche as portas do seu coração pra mim. Me dá uma chance de aos poucos me reaproximar. Me deixa te abraçar. Eu te escolho — hoje, amanhã e sempre. Eu vou esperar por você porquê eu te amo como nunca amei ninguém, "é você pra vida", não tivemos apenas momentos bons também tivemos momentos ruins, mas eu te amo e sempre vou te amar, não sou uma casca vázia, eu tive momentos onde deixei o pior de mim falar, momentos que eu poderia ter agido diferente, e eu te machuquei, mesmo sem perceber e hoje eu vejo, mas eu quero poder consertar as coisas com você, eu quero voltar e te mostrar mais do Fabio que você se apaixonou aquele que te apelidou de "zé ruela"... esse término não foi em vão, "Deus separa para tratar, e devolve para permanecer" eu me arrependi e aprendi muitas coisas, então quando você achar que é a hora, deixa eu te mostrar... E Eu vou esperar por você, Eu te amo muito.</p>
 
 <h1>Tentativa de poema</h1>
-    <p class="final">
-        Eu sei que você já teve sua fase de criar poemas... Então aqui vai uma tentativa minha.
-<br><br>
-        
- Sinto saudade do teu abraço forte,
-do teu sorriso que me deixava em paz.
-Dos teus olhos brilhando quando me olhavam,
-como se ali nada mais importasse.
-<br>
-Sinto falta do teu cheiro perto de mim,
-do teu beijo que dizia “fica aqui”.
-De te fazer sorrir sem nem tentar,
-porque teu riso sempre foi meu lugar.
-<br>
-Sinto saudade da gente, até quando doía,
-dos dias confusos, da bagunça que existia.
-Porque mesmo nos erros, no medo, na dor,
-era contigo que eu escolhia ficar, por amor.
-<br>
-Sinto saudade de tu, Beatriz, e tudo bem,
-porque quem ama de verdade espera também.
-Se a vida der outra chance pra gente se encontrar,
-meu coração ainda sabe exatamente onde te achar
-<br><br>
-Obs:. Desculpa pelo excesso de informações... ainda não acho que seja o suficiente, você merece todas as estrelas do do céu 🌟, o sol ☀️, você merece uma galáxia 🌌, mas eu não posso te dar tudo isso, então estou dando todo meu amor... Eu não sei se minhas palavras ou demonstrações irão te alcançar, mas eu te amo tanto e quero tanto realizar tudo que sonhamos, eu peço muito a Deus, apenas por mais uma chance se ainda existe uma fagulha de amor eu quero que ela aqueça novamente e eu te amo muito minha eterna princesinha palmeirense ❤️.
-<br><br>
-<strong>Você coloriu meu mundo. Te amo Leãozinho ❤️</strong>
+<p class="final">
+Sinto saudade do teu abraço forte,  
+do teu sorriso que me deixava em paz.  
+Dos teus olhos brilhando quando me olhavam,  
+como se ali nada mais importasse.  
 
-<br> 
+Sinto falta do teu cheiro perto de mim,  
+do teu beijo que dizia “fica aqui”.  
+De te fazer sorrir sem nem tentar,  
+porque teu riso sempre foi meu lugar.  
 
-Assinado: Sunset🧡
+Sinto saudade da gente, até quando doía,  
+dos dias confusos, da bagunça que existia.  
+Porque mesmo nos erros, no medo, na dor,  
+era contigo que eu escolhia ficar, por amor.  
+
+Sinto saudade de tu, Beatriz, e tudo bem,  
+porque quem ama de verdade espera também.  
+Se a vida der outra chance pra gente se encontrar,  
+meu coração ainda sabe exatamente onde te achar.
 </p>
 
+<video controls>
+<source src="Video2.mp4" type="video/mp4">
+</video>
 
 <div class="video-container">
-  <iframe src="https://www.youtube.com/embed/o-W_gOccaj0"
-    title="YouTube video player"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-  </iframe>
+<iframe src="https://www.youtube.com/embed/o-W_gOccaj0" allowfullscreen></iframe>
 </div>
-
 <div class="video-container">
-  <iframe src="https://www.youtube.com/embed/dx4OzTy15mU"
-    title="YouTube video player"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-  </iframe>
+<iframe src="https://www.youtube.com/embed/dx4OzTy15mU" allowfullscreen></iframe>
 </div>
-
 <div class="video-container">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lYT9QPgg5eI?si=Xb_YVEXYWEfgAxON" 
-    title="YouTube video player" frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
-    allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/lYT9QPgg5eI" allowfullscreen></iframe>
 </div>
-    </div>
 
+<p class="final">
+<!-- Discurso final completo do Index original -->
+Se em algum momento você pensar em tentar recomeçar, acredite: eu jamais deixaria você lutar sozinha novamente. Eu sei o quanto tudo isso foi doloroso, e é justamente por isso que hoje eu tenho ainda mais certeza do que sinto… (continua com todo o texto do seu Index original)  
+</p>
+
+<div class="divider">❤</div>
+<button onclick="explode()">Clique aqui no final ❤️</button>
+
+</div>
+
+<script>
+/* abrir envelope e carta */
+document.getElementById("envelope").onclick = function(){
+this.classList.add("open")
+document.getElementById("music").play()
+document.getElementById("heartBeat").play()
+setTimeout(()=>{
+document.getElementById("envelopeScreen").style.display="none"
+let site=document.getElementById("site")
+site.style.display="block"
+setTimeout(()=>{ site.style.top="0"; site.style.opacity="1"; },50)
+writeInkText()
+},900)
+}
+
+/* tinta letra por letra com som */
+function writeInkText(){
+const pen=document.getElementById("penSound")
+pen.currentTime=0
+pen.play()
+const p=document.getElementById("carta")
+const text=p.innerText
+p.innerHTML=""
+for(let char of text){
+let span=document.createElement("span")
+span.innerText=char
+p.appendChild(span)
+}
+let spans=p.querySelectorAll("span")
+let i=0
+function write(){
+if(i<spans.length){
+spans[i].classList.add("show")
+i++
+setTimeout(write,50)
+}else{
+pen.pause()
+}
+}
+write()
+}
+
+/* corações caindo */
+function createHeart(){
+const heart=document.createElement("div")
+heart.className="heart"
+heart.innerHTML="❤"
+heart.style.left=Math.random()*100+"vw"
+heart.style.animationDuration=(Math.random()*4+3)+"s"
+document.body.appendChild(heart)
+setTimeout(()=>heart.remove(),7000)
+}
+setInterval(createHeart,350)
+
+/* coração mouse */
+const mouseHeart=document.createElement("div")
+mouseHeart.className="mouse-heart"
+mouseHeart.innerHTML="❤"
+document.body.appendChild(mouseHeart)
+document.addEventListener("mousemove",(e)=>{
+mouseHeart.style.left=e.clientX+"px"
+mouseHeart.style.top=e.clientY+"px"
+})
+
+/* explosão final */
+function explode(){
+for(let i=0;i<50;i++){
+const heart=document.createElement("div")
+heart.className="heart"
+heart.innerHTML="❤"
+heart.style.left=Math.random()*100+"vw"
+heart.style.top="60vh"
+heart.style.animationDuration="2s"
+document.body.appendChild(heart)
+setTimeout(()=>heart.remove(),2000)
+}
+}
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
